@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum IncidentClassification {
+  ATTEMPTED_THEFT_PILFERAGE
+  PHYSICAL_INJURY
+  BEHAVIORAL_CONCERN
+  SAFETY_VIOLATION
+  DAMAGE_TO_PROPERTY
+  THEFT_PILFERAGE
+  ENVIRONMENT_CONCERN
+  TRESPASSING
+  MALICIOUS_MISCHIEF
+  VEHICULAR_ACCIDENT
+  OPERATIONAL_PROCEDURE
+  OTHERS
+}
+
+enum IncidentStatus {
+  PENDING
+  OPEN
+  CLOSED
+}
+
+model Incident {
+  id                      String                 @id @default(uuid())
+  referenceNo             String                 @unique
+
+  reportedByName          String
+  reporterPosition        String?
+  reporterDepartment      String?
+  reporterSite            String?
+  reportDate              DateTime?
+  reportTime              String?
+
+  classification          IncidentClassification
+  classificationOtherText String?
+  incidentSite            String?
+  incidentArea            String?
+  incidentDate            DateTime?
+  incidentTime            String?
+  description             String
+  immediateActionTaken    String?
+
+  reportTakenByName       String?
+  reportTakenByPosition   String?
+  reportTakenDate         DateTime?
+  reportTakenTime         String?
+
+  status                  IncidentStatus         @default(PENDING)
+  statusNotes             String?
+  closedAt                DateTime?
+
+  impactHealthSafety      Boolean                @default(false)
+  impactLegal             Boolean                @default(false)
+  impactOperational       Boolean                @default(false)
+  impactReputational      Boolean                @default(false)
+  impactFinancial         Boolean                @default(false)
+  impactOthers            Boolean                @default(false)
+  impactOtherText         String?
+  impactDescription       String?
+
+  recommendation          String?
+  notedBy                 String?
+  approvedBy              String?
+
+  submittedByUserId       String?
+  submittedByEmail        String?
+
+  createdAt               DateTime               @default(now())
+  updatedAt               DateTime               @updatedAt
+
+  @@index([status])
+  @@index([classification])
+  @@index([incidentDate])
+  @@index([createdAt])
+}

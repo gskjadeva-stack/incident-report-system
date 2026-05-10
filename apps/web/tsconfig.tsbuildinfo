@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/api/client.ts","./src/components/incidentform.tsx","./src/components/incidenttable.tsx","./src/components/statusbadge.tsx","./src/pages/incidentdashboardpage.tsx","./src/pages/incidentformpage.tsx","./src/types/incident.ts"],"version":"5.9.3"}

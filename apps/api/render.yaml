@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ir-incident-api
+    env: node
+    rootDir: apps/api
+    buildCommand: npm install && npx prisma generate
+    startCommand: node dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: CORS_ORIGIN
+        value: https://ir-incident-web.vercel.app
+      - key: DATABASE_URL
+        fromSecret: DATABASE_URL
+      - key: SUPABASE_URL
+        fromSecret: SUPABASE_URL
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        fromSecret: SUPABASE_SERVICE_ROLE_KEY
