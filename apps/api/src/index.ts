@@ -9,7 +9,17 @@ import { incidentsRouter } from "./routes/incidents.routes.js";
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: env.CORS_ORIGIN }));
+const allowedOrigins = env.CORS_ORIGIN.split(",").map((o) => o.trim());
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (server-to-server, curl, etc.)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  }
+}));
 app.use(express.json({ limit: "1mb" }));
 app.use(attachUserIfPresent);
 

@@ -11,7 +11,7 @@ services:
       - key: PORT
         value: "10000"
       - key: CORS_ORIGIN
-        value: https://ir-incident-web.vercel.app
+        value: https://ir-incident-web.vercel.app,https://incident-report-system-855xqz6t9-gskjadeva-6395s-projects.vercel.app
       - key: DATABASE_URL
         fromSecret: DATABASE_URL
       - key: SUPABASE_URL
